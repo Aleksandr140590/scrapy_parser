@@ -1,3 +1,4 @@
+import csv
 from datetime import datetime
 from pathlib import Path
 
@@ -23,9 +24,11 @@ class PepParsePipeline:
             datetime.now().strftime("%Y-%m-%dT%H-%M-%S")
         )
         csv_path = self.result_dir / filename
+        rows = []
+        for status, counter in self.statuses.items():
+            rows.append([status,counter])
         with open(csv_path, mode='w', encoding='utf-8') as f:
             f.write('Статус,Количество\n')
-            for status, counter in self.statuses.items():
-                f.write(f"{status},{counter}\n")
-
+            writer = csv.writer(f)
+            writer.writerows(rows)
             f.write(f'Total,{sum(self.statuses.values())}\n')
