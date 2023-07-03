@@ -26,7 +26,7 @@ class PepParsePipeline:
         csv_path = self.result_dir / filename
         rows = []
         for status, counter in self.statuses.items():
-            rows.append([status,counter])
+            rows.append([status, counter])
         with open(csv_path, mode='w', encoding='utf-8') as f:
             f.write('Статус,Количество\n')
             writer = csv.writer(f)
